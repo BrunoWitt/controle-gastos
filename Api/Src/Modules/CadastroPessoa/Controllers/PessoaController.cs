@@ -6,7 +6,7 @@ using CadastroPessoa.DTOs;
 namespace CadastroPessoa.Controllers;
 
 [ApiController]
-[Route("api/pessoas")]
+[Route("api/pessoa")]
 public class PessoaController : ControllerBase
 {
 

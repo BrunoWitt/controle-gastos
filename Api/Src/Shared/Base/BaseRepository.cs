@@ -160,13 +160,29 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity>
                 continue;
 
 
-            property.SetValue(
-                entity,
-                Convert.ChangeType(
-                    value,
-                    property.PropertyType
-                )
-            );
+            if(property.PropertyType.IsEnum)
+            {
+                var enumValue = Enum.Parse(
+                    property.PropertyType,
+                    value.ToString()!,
+                    true
+                );
+
+                property.SetValue(
+                    entity,
+                    enumValue
+                );
+            }
+            else
+            {
+                property.SetValue(
+                    entity,
+                    Convert.ChangeType(
+                        value,
+                        property.PropertyType
+                    )
+                );
+            }
 
         }
 

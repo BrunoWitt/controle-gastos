@@ -8,7 +8,7 @@ namespace MinhaApi.Controllers;
 
 
 [ApiController]
-[Route("api/transacoes")]
+[Route("api/transacao")]
 public class TransacaoController : ControllerBase
 {
     private readonly ITransacaoService _service;
