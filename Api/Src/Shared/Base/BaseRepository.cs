@@ -68,10 +68,22 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity>
 
         foreach(var property in properties)
         {
-            command.Parameters.AddWithValue(
-                ToSnakeCase(property.Name),
-                property.GetValue(entity) ?? DBNull.Value
-            );
+            var value = property.GetValue(entity);
+
+            if(value is Enum)
+            {
+                command.Parameters.AddWithValue(
+                    ToSnakeCase(property.Name),
+                    value.ToString().ToUpper()
+                );
+            }
+            else
+            {
+                command.Parameters.AddWithValue(
+                    ToSnakeCase(property.Name),
+                    value ?? DBNull.Value
+                );
+            }
         }
 
 

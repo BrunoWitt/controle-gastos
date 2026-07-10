@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\bruno\\Documents\\maxiprod\\Api\\Api.csproj": {}
+    "C:\\Users\\bruno\\Documents\\maxiprod\\Api\\Api.csproj": {}
   },
   "projects": {
-    "c:\\Users\\bruno\\Documents\\maxiprod\\Api\\Api.csproj": {
+    "C:\\Users\\bruno\\Documents\\maxiprod\\Api\\Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\bruno\\Documents\\maxiprod\\Api\\Api.csproj",
+        "projectUniqueName": "C:\\Users\\bruno\\Documents\\maxiprod\\Api\\Api.csproj",
         "projectName": "Api",
-        "projectPath": "c:\\Users\\bruno\\Documents\\maxiprod\\Api\\Api.csproj",
+        "projectPath": "C:\\Users\\bruno\\Documents\\maxiprod\\Api\\Api.csproj",
         "packagesPath": "C:\\Users\\bruno\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\bruno\\Documents\\maxiprod\\Api\\obj\\",
+        "outputPath": "C:\\Users\\bruno\\Documents\\maxiprod\\Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\bruno\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -46,6 +46,10 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
+            "DotNetEnv": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[10.0.9, )"
@@ -53,6 +57,10 @@
             "Npgsql": {
               "target": "Package",
               "version": "[10.0.3, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[10.2.3, )"
             }
           },
           "imports": [
