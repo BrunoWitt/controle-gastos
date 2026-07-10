@@ -80,6 +80,34 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity>
     }
 
 
+    public async Task<TEntity?> GetByIdAsync(int id)
+    {
+        var sql =
+            $"SELECT * FROM {TableName} WHERE id = @id";
+
+
+        using var connection = Connection;
+
+        await connection.OpenAsync();
+
+
+        using var command = new NpgsqlCommand(sql, connection);
+
+        command.Parameters.AddWithValue("id", id);
+
+
+
+        using var reader = await command.ExecuteReaderAsync();
+
+
+        if(await reader.ReadAsync())
+            return Map(reader);
+
+
+        return null;
+    }
+
+
     public async Task DeleteAsync(int id)
     {
         var sql =
