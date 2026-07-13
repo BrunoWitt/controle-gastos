@@ -8,6 +8,9 @@ namespace Shared.Base;
 public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity>
     where TEntity : BaseModel, new()
 {
+    /// <summary>
+    /// Funciona como uma classe base para repositórios de entidades, fornecendo métodos genéricos para operações de banco de dados, como listar, criar, buscar por ID e deletar entidades.
+    /// </summary>
 
     private readonly IConfiguration _configuration;
 
@@ -16,14 +19,18 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity>
         _configuration = configuration;
     }
 
+
     protected NpgsqlConnection Connection =>
         new(_configuration.GetConnectionString("Default"));
+
 
     protected virtual string TableName =>
         typeof(TEntity).Name.ToLower();
 
+
     public async Task<IEnumerable<TEntity>> GetAllAsync()
     {
+        //Retorna todas as entidades do tipo TEntity do banco de dados, mapeando os resultados para objetos da classe TEntity.
         var result = new List<TEntity>();
 
         var sql = $"SELECT * FROM {TableName}";
@@ -47,6 +54,7 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity>
 
     public async Task CreateAsync(TEntity entity)
     {
+        //Cria uma nova entidade do tipo TEntity no banco de dados, gerando dinamicamente a instrução SQL de inserção com base nas propriedades da entidade.
         var properties = typeof(TEntity)
             .GetProperties()
             .Where(x => x.Name != "Id");
@@ -94,6 +102,7 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity>
 
     public async Task<TEntity?> GetByIdAsync(int id)
     {
+        //Retorna uma entidade do tipo TEntity pelo ID, mapeando o resultado para um objeto da classe TEntity.
         var sql =
             $"SELECT * FROM {TableName} WHERE id = @id";
 
@@ -122,6 +131,7 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity>
 
     public async Task DeleteAsync(int id)
     {
+        //Deleta uma entidade do tipo TEntity pelo ID, executando a instrução SQL de exclusão no banco de dados.
         var sql =
             $"DELETE FROM {TableName} WHERE id = @id";
 
@@ -143,9 +153,9 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity>
 
     protected TEntity Map(NpgsqlDataReader reader)
     {
+        //Mapeia os dados retornados pelo banco de dados para um objeto da classe TEntity, convertendo os valores das colunas para os tipos de propriedades correspondentes.
 
         var entity = new TEntity();
-
 
         foreach(var property in typeof(TEntity).GetProperties())
         {
@@ -186,13 +196,13 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity>
 
         }
 
-
         return entity;
     }
 
 
     private string ToSnakeCase(string name)
     {
+        //Converte o nome de uma propriedade em formato PascalCase para snake_case, que é o formato comumente usado para nomes de colunas em bancos de dados relacionais.
         return string.Concat(
             name.Select((x,i)=>
                 i > 0 && char.IsUpper(x)

@@ -12,8 +12,6 @@ public class TransacaoService : ITransacaoService
 
     private readonly IPessoaRepository _pessoaRepository;
 
-
-
     public TransacaoService(
         ITransacaoRepository repository,
         IPessoaRepository pessoaRepository
@@ -23,20 +21,18 @@ public class TransacaoService : ITransacaoService
         _pessoaRepository = pessoaRepository;
     }
 
-
-
     public async Task<IEnumerable<Transacao>> Listar()
     {
         return await _repository.GetAllAsync();
     }
 
-
-
     public async Task Criar(
         Transacao transacao
     )
+    /// <summary>
+    /// Cria uma nova transação, realizando validações de negócio antes de persistir no banco de dados.
+    /// </summary>
     {
-
         var pessoa =
             await _pessoaRepository.GetByIdAsync(
                 transacao.PessoaId

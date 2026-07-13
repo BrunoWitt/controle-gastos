@@ -24,7 +24,9 @@ public class PessoaService : IPessoaService
 
     public async Task Criar(Pessoa pessoa)
     {
-
+        /// <summary>
+        /// Cria uma nova pessoa, realizando validações de negócio antes de persistir no banco de dados.
+        /// </summary>
         if(string.IsNullOrWhiteSpace(pessoa.Nome))
         {
             throw new Exception("Nome obrigatório");

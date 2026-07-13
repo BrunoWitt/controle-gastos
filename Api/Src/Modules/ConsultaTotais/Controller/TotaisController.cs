@@ -12,17 +12,12 @@ public class TotaisController : ControllerBase
 
     private readonly ITotaisService _service;
 
-
-
     public TotaisController(
         ITotaisService service
     )
     {
         _service = service;
     }
-
-
-
 
     [HttpGet]
     public async Task<IActionResult> Get()

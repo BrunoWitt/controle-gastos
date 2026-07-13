@@ -9,9 +9,7 @@ namespace CadastroPessoa.Controllers;
 [Route("api/pessoa")]
 public class PessoaController : ControllerBase
 {
-
     private readonly IPessoaService _service;
-
 
     public PessoaController(
         IPessoaService service
@@ -19,7 +17,7 @@ public class PessoaController : ControllerBase
     {
         _service = service;
     }
-
+    
 
     [HttpGet]
     public async Task<IActionResult> Get()

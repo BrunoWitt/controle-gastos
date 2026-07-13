@@ -2,13 +2,9 @@ import { Link, Outlet } from "react-router-dom";
 
 
 function Layout(){
-
     return (
-
         <>
-
             <nav>
-
                 <Link to="/">
                     Pessoas
                 </Link>
@@ -25,15 +21,10 @@ function Layout(){
 
             </nav>
 
-
             <main>
-
                 <Outlet />
-
             </main>
-
         </>
-
     );
 
 }

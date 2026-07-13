@@ -7,24 +7,17 @@ import {
 
 
 function Pessoas(){
-
-
     const [pessoas, setPessoas] = useState<Pessoa[]>([]);
-
 
     const [nome, setNome] = useState("");
 
     const [idade, setIdade] = useState(0);
-
-
 
     useEffect(()=>{
 
         carregarPessoas();
 
     },[]);
-
-
 
     async function carregarPessoas()
     {
@@ -34,8 +27,6 @@ function Pessoas(){
         setPessoas(dados);
 
     }
-
-
 
     async function cadastrar()
     {
@@ -50,24 +41,17 @@ function Pessoas(){
 
         setIdade(0);
 
-
         carregarPessoas();
 
     }
 
-
-
     return (
-
         <>
-
         <h1>
             Pessoas
         </h1>
 
-
         <div>
-
             <input
                 placeholder="Nome"
                 value={nome}
@@ -75,7 +59,6 @@ function Pessoas(){
                     e => setNome(e.target.value)
                 }
             />
-
 
             <input
                 type="number"
@@ -86,24 +69,15 @@ function Pessoas(){
                 }
             />
 
-
             <button onClick={cadastrar}>
                 Cadastrar
             </button>
-
         </div>
-
-
-
         <hr/>
 
-
         <table>
-
             <thead>
-
                 <tr>
-
                     <th>
                         Id
                     </th>
@@ -115,14 +89,10 @@ function Pessoas(){
                     <th>
                         Idade
                     </th>
-
                 </tr>
-
             </thead>
 
-
             <tbody>
-
             {
                 pessoas.map(pessoa => (
 
@@ -141,22 +111,14 @@ function Pessoas(){
                         </td>
 
                     </tr>
-
                 ))
             }
-
-
             </tbody>
-
 
         </table>
 
-
         </>
-
     )
-
 }
-
 
 export default Pessoas;

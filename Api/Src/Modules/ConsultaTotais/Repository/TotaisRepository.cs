@@ -32,9 +32,10 @@ public class TotaisRepository : ITotaisRepository
 
     public async Task<IEnumerable<TotalPessoa>> ObterTotais()
     {
-
+        /// <summary>
+        /// Obtém os totais de receitas, despesas e saldo das pessoas cadastradas no banco
+        /// </summary>
         var lista = new List<TotalPessoa>();
-
 
         var sql = """
             SELECT 
@@ -76,13 +77,9 @@ public class TotaisRepository : ITotaisRepository
                 p.nome;
             """;
 
-
-
         using var connection = Connection;
 
         await connection.OpenAsync();
-
-
 
         using var command =
             new NpgsqlCommand(
@@ -90,12 +87,8 @@ public class TotaisRepository : ITotaisRepository
                 connection
             );
 
-
-
         using var reader =
             await command.ExecuteReaderAsync();
-
-
 
         while(await reader.ReadAsync())
         {
@@ -116,7 +109,6 @@ public class TotaisRepository : ITotaisRepository
             );
 
         }
-
 
         return lista;
 

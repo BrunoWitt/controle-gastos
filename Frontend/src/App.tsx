@@ -9,8 +9,8 @@ import Transacoes from "./pages/Transacoes";
 import Totais from "./pages/Totais";
 import Layout from "./components/Layout";
 
+//Componente principal da aplicação que define as rotas e o layout
 function App() {
-
 
   return (
 
@@ -27,12 +27,10 @@ function App() {
                 element={<Pessoas />}
             />
 
-
             <Route 
                 path="/transacoes"
                 element={<Transacoes />}
             />
-
 
             <Route 
                 path="/totais"
@@ -40,15 +38,10 @@ function App() {
             />
 
         </Route>
-
-
     </Routes>
 
-
     </BrowserRouter>
-
   )
-
 }
 
 

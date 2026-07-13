@@ -1,0 +1,162 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict qhwoDDAIY1H5BwHAs0egIQH9tx7Zql2wW32wOImIFUVs0S8oFLgIoZ9tMhmIyhc
+
+-- Dumped from database version 18.4
+-- Dumped by pg_dump version 18.4
+
+-- Started on 2026-07-13 11:58:57
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 220 (class 1259 OID 16390)
+-- Name: pessoa; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.pessoa (
+    id integer CONSTRAINT pessoas_id_not_null NOT NULL,
+    nome character varying(150) CONSTRAINT pessoas_nome_not_null NOT NULL,
+    idade integer CONSTRAINT pessoas_idade_not_null NOT NULL,
+    CONSTRAINT pessoas_idade_check CHECK ((idade >= 0))
+);
+
+
+ALTER TABLE public.pessoa OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 16389)
+-- Name: pessoas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.pessoas_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.pessoas_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4923 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: pessoas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.pessoas_id_seq OWNED BY public.pessoa.id;
+
+
+--
+-- TOC entry 222 (class 1259 OID 16401)
+-- Name: transacao; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.transacao (
+    id integer CONSTRAINT transacoes_id_not_null NOT NULL,
+    descricao character varying(255) CONSTRAINT transacoes_descricao_not_null NOT NULL,
+    valor numeric(12,2) CONSTRAINT transacoes_valor_not_null NOT NULL,
+    tipo character varying(10) CONSTRAINT transacoes_tipo_not_null NOT NULL,
+    pessoa_id integer CONSTRAINT transacoes_pessoa_id_not_null NOT NULL,
+    data_cadastro timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT transacoes_tipo_check CHECK (((tipo)::text = ANY ((ARRAY['RECEITA'::character varying, 'DESPESA'::character varying])::text[]))),
+    CONSTRAINT transacoes_valor_check CHECK ((valor > (0)::numeric))
+);
+
+
+ALTER TABLE public.transacao OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 16400)
+-- Name: transacoes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.transacoes_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.transacoes_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4924 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: transacoes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.transacoes_id_seq OWNED BY public.transacao.id;
+
+
+--
+-- TOC entry 4760 (class 2604 OID 16393)
+-- Name: pessoa id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pessoa ALTER COLUMN id SET DEFAULT nextval('public.pessoas_id_seq'::regclass);
+
+
+--
+-- TOC entry 4761 (class 2604 OID 16404)
+-- Name: transacao id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transacao ALTER COLUMN id SET DEFAULT nextval('public.transacoes_id_seq'::regclass);
+
+
+--
+-- TOC entry 4767 (class 2606 OID 16399)
+-- Name: pessoa pessoas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pessoa
+    ADD CONSTRAINT pessoas_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4769 (class 2606 OID 16414)
+-- Name: transacao transacoes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transacao
+    ADD CONSTRAINT transacoes_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4770 (class 2606 OID 16415)
+-- Name: transacao fk_pessoa; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transacao
+    ADD CONSTRAINT fk_pessoa FOREIGN KEY (pessoa_id) REFERENCES public.pessoa(id) ON DELETE CASCADE;
+
+
+-- Completed on 2026-07-13 11:58:58
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict qhwoDDAIY1H5BwHAs0egIQH9tx7Zql2wW32wOImIFUVs0S8oFLgIoZ9tMhmIyhc
+

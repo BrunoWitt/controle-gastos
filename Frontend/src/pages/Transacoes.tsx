@@ -16,47 +16,33 @@ import {
     buscarPessoas
 } from "../services/pessoaService";
 
-
-
 function Transacoes()
 {
-
-
     const [transacoes,setTransacoes]
         = useState<Transacao[]>([]);
-
 
     const [pessoas,setPessoas]
         = useState<Pessoa[]>([]);
 
-
-
     const [descricao,setDescricao]
         = useState("");
 
-
     const [valor,setValor]
         = useState(0);
-
 
     const [tipo,setTipo]
         = useState<"Receita"|"Despesa">(
             "Despesa"
         );
 
-
     const [pessoaId,setPessoaId]
         = useState(0);
-
-
 
     useEffect(()=>{
 
         carregar();
 
     },[]);
-
-
 
     async function carregar()
     {
@@ -68,14 +54,11 @@ function Transacoes()
         const pessoas =
             await buscarPessoas();
 
-
         setTransacoes(transacoes);
 
         setPessoas(pessoas);
 
     }
-
-
 
     async function cadastrar()
     {
@@ -102,8 +85,6 @@ function Transacoes()
 
     }
 
-
-
     return (
 
         <>
@@ -112,11 +93,7 @@ function Transacoes()
             Transações
         </h1>
 
-
-
         <div>
-
-
             <input
 
                 placeholder="Descrição"
@@ -128,9 +105,6 @@ function Transacoes()
                 }
 
             />
-
-
-
             <input
 
                 type="number"
@@ -146,9 +120,6 @@ function Transacoes()
                 }
 
             />
-
-
-
             <select
 
                 value={tipo}
@@ -158,9 +129,7 @@ function Transacoes()
                         e.target.value as "Receita"|"Despesa"
                     )
                 }
-
             >
-
                 <option value="Receita">
                     Receita
                 </option>
@@ -169,12 +138,7 @@ function Transacoes()
                 <option value="Despesa">
                     Despesa
                 </option>
-
-
             </select>
-
-
-
 
             <select
 
@@ -192,7 +156,6 @@ function Transacoes()
                     Selecione pessoa
                 </option>
 
-
                 {
                     pessoas.map(pessoa=>(
 
@@ -207,31 +170,17 @@ function Transacoes()
 
                     ))
                 }
-
-
             </select>
-
-
 
             <button onClick={cadastrar}>
                 Cadastrar
             </button>
-
-
         </div>
-
-
-
         <hr/>
 
-
         <table>
-
-
             <thead>
-
                 <tr>
-
                     <th>
                         Descrição
                     </th>
@@ -247,61 +196,39 @@ function Transacoes()
                     <th>
                         Pessoa
                     </th>
-
-
                 </tr>
-
-
             </thead>
-
-
-
             <tbody>
-
-
             {
                 transacoes.map(t=>(
 
                     <tr key={t.id}>
 
-
                         <td>
                             {t.descricao}
                         </td>
-
 
                         <td>
                             R$ {t.valor}
                         </td>
 
-
                         <td>
                             {t.tipo}
                         </td>
-
 
                         <td>
                             {t.pessoaId}
                         </td>
 
-
                     </tr>
 
                 ))
             }
-
-
             </tbody>
 
-
         </table>
-
-
         </>
-
     );
-
 }
-
 
 export default Transacoes;
